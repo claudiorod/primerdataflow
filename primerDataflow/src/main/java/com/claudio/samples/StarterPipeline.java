@@ -20,6 +20,7 @@ package com.claudio.samples;
 import java.util.logging.XMLFormatter;
 
 import org.apache.beam.sdk.Pipeline;
+import org.apache.beam.sdk.io.FileIO;
 import org.apache.beam.sdk.io.xml.XmlIO;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.slf4j.Logger;
@@ -54,8 +55,8 @@ public class StarterPipeline {
 	                                            .withValidation()
 	                                            .as(MyOptions.class);
 	  
-	  System.out.println(options.getTempLocation());
-	  
+	  System.out.println("lectura "+options.getTempLocation());
+	  System.out.println("escritura "+options.getOutput());
 	  
 	  Pipeline pipeline = Pipeline.create(options);
       
@@ -67,9 +68,15 @@ public class StarterPipeline {
 		  	 .apply("Agregar ceros",new CustomerNAMETransformation())
 		  	 .apply("Listar",new CustomerVIEWTransformation())
 		  	 
-		  	.apply(XmlIO.<Customer>write().to(options.getOutput()).withRootElement("customers")
-		  			  
-		              .withRecordClass(Customer.class));
+//		  	.apply(XmlIO.<Customer>write().to(options.getOutput()).withRootElement("customers")
+//		  			  
+//		              .withRecordClass(Customer.class));
+	  
+	  
+	  .apply(FileIO.<Customer>write().to(options.getOutput())
+			     .via(XmlIO.sink(Customer.class).withRootElement("customers")) );
+	  
+	  
 	  
    pipeline.run().waitUntilFinish();
 
