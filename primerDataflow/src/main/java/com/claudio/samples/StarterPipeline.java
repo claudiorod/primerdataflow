@@ -64,6 +64,5 @@ public class StarterPipeline {
 		  	 .apply("Listar",new CustomerVIEWTransformation());
    pipeline.run().waitUntilFinish();
 
-   pipeline.run();
   }
 }
