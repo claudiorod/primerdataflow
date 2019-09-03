@@ -74,7 +74,7 @@ public class StarterPipeline {
 	  
 	  
 	  .apply(FileIO.<Customer>write().to(options.getOutput())
-			     .via(XmlIO.sink(Customer.class).withRootElement("customers")) );
+			     .via(XmlIO.sink(Customer.class).withRootElement("customer")) );
 	  
 	  
 	  
