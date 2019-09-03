@@ -68,15 +68,15 @@ public class StarterPipeline {
 		  	 .apply("Agregar ceros",new CustomerNAMETransformation())
 		  	 .apply("Listar",new CustomerVIEWTransformation())
 		  	 
-//		  	.apply(XmlIO.<Customer>write().to(options.getOutput()).withRootElement("customers")
-//		  			  
-//		              .withRecordClass(Customer.class));
+//		  	.apply(XmlIO.<Customer>write().to(options.getOutput()).withRootElement("customer")
+//		             .withRecordClass(Customer.class)
+//		              );
 	  
 	  
 	  .apply(FileIO.<Customer>write().to(options.getOutput())
 			     .via(XmlIO.sink(Customer.class).withRootElement("customer")) );
 	  
-	  
+//		.apply(XmlIO.<Customer>write().to(options.getOutput()).withRecordClass(Customer.class).withRootElement("customer") );
 	  
    pipeline.run().waitUntilFinish();
 
