@@ -55,13 +55,13 @@ public class StarterPipeline {
 	                                            .withValidation()
 	                                            .as(MyOptions.class);
 	  
-	  System.out.println("lectura "+options.getTempLocation());
+	  System.out.println("lectura "+options.getInput());
 	  System.out.println("escritura "+options.getOutput());
 	  
 	  Pipeline pipeline = Pipeline.create(options);
       
 	  
-	  pipeline.apply("leyendo",XmlIO.<Customer>read().from(options.getTempLocation()).withRootElement("customers")
+	  pipeline.apply("leyendo",XmlIO.<Customer>read().from(options.getInput()).withRootElement("customers")
 	             .withRecordElement("customer")
 	             .withRecordClass(Customer.class))
 		  	 .apply("Agregar check",new CustomerCHECKTransformation())
